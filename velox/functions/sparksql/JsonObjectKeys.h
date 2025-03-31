@@ -28,12 +28,15 @@ template <typename T>
 struct JsonObjectKeysFunction {
   VELOX_DEFINE_FUNCTION_TYPES(T);
 
-  FOLLY_ALWAYS_INLINE bool call(
+  FOLLY_ALWAYS_INLINE bool callNullable(
       out_type<Array<Varchar>>& out,
-      const arg_type<Varchar>& json) {
+      const arg_type<Varchar>* json) {
+    if (json == nullptr) {
+      return false;
+    }
     simdjson::ondemand::document jsonDoc;
 
-    simdjson::padded_string paddedJson(json.data(), json.size());
+    simdjson::padded_string paddedJson(json->data(), json->size());
     // The result is NULL if the given string is not a valid JSON string.
     if (simdjsonParse(paddedJson).get(jsonDoc)) {
       return false;
