@@ -240,6 +240,17 @@ std::vector<std::shared_ptr<exec::FunctionSignature>> signatures() {
   std::vector<std::shared_ptr<exec::FunctionSignature>> signatures;
   signatures = {
       exec::FunctionSignatureBuilder()
+          .returnType("array(integer)")
+          .argumentType("integer")
+          .argumentType("integer")
+          .build(),
+      exec::FunctionSignatureBuilder()
+          .returnType("array(integer)")
+          .argumentType("integer")
+          .argumentType("integer")
+          .argumentType("integer")
+          .build(),
+      exec::FunctionSignatureBuilder()
           .returnType("array(bigint)")
           .argumentType("bigint")
           .argumentType("bigint")
